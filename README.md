@@ -1,2 +1,15 @@
-# ace-gremlin-editor
-基于 Ace 的 Gremlin 编辑器
+# umi project
+
+## Getting Started
+
+Install dependencies,
+
+```bash
+$ yarn
+```
+
+Start the dev server,
+
+```bash
+$ yarn start
+```
