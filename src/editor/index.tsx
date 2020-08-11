@@ -40,6 +40,7 @@ const GremlinEditor: React.FC<IProps> = ({
       gremlinEditor.$blockScrolling = Infinity;
       // gremlinEditor.setOption('maxLines', 15);
       gremlinEditor.setOption('minLines', 3);
+      gremlinEditor.setOption('wrap', 'free');
       console.log(Object.keys(gremlinEditor.$options));
       gremlinEditor.setOptions({
         enableBasicAutocompletion: true,
@@ -69,6 +70,18 @@ const GremlinEditor: React.FC<IProps> = ({
     if (initValue) {
       gremlinEditor.setValue(initValue);
     }
+
+    // 清除默认选中的内容
+    gremlinEditor.clearSelection();
+    // 自动换到下一行
+    gremlinEditor.splitLine();
+    // 将光标移动到第二行
+    gremlinEditor.gotoLine(2, 4, true);
+
+    return () => {
+      gremlinEditor.destroy();
+      gremlinEditor.container.remove();
+    };
   }, [gremlinId]);
 
   return <div id={gremlinId} style={{ height }} />;

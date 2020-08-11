@@ -13,8 +13,8 @@ export default () => {
       <GremlinEditor
         height={500}
         gremlinId="test-xxx"
-        initValue=""
-        showGutter={false}
+        initValue="/* 请输入 Gremlin 语句 */"
+        showGutter={true}
         onValueChange={str => handleClick(str)}
       />
       <div>{value}</div>
