@@ -5,6 +5,9 @@ require('../source/ace/ace-builds/src-noconflict/theme-clouds_midnight');
 require('../source/ace/ace-builds/src-noconflict/ext-language_tools');
 import './index.less';
 
+/**
+ * 参考文档：https://ace.c9.io/#nav=api&api=editor
+ */
 interface IProps {
   height: number;
   gremlinId: string;
