@@ -1,1 +1,3 @@
-export { default as GremlinEditor } from './editor';
+import GremlinEditor from './editor';
+
+export default GremlinEditor;
