@@ -11,6 +11,7 @@ interface IProps {
   initValue: string;
   showGutter?: boolean;
   onValueChange: (value: string) => void;
+  onSelectChange?: (value: string) => void;
 }
 
 const GremlinEditor: React.FC<IProps> = ({
@@ -19,10 +20,9 @@ const GremlinEditor: React.FC<IProps> = ({
   gremlinId,
   initValue,
   onValueChange,
+  onSelectChange,
 }) => {
   let gremlinEditor: any = null;
-
-  console.log('gremlinId', gremlinId);
 
   useEffect(() => {
     if (!gremlinId) {
@@ -48,13 +48,20 @@ const GremlinEditor: React.FC<IProps> = ({
       });
 
       gremlinEditor.on('change', () => {
-        const selectedValue = gremlinEditor.session.getTextRange(
-          gremlinEditor.getSelectionRange(),
-        );
-        const queryValue = selectedValue || gremlinEditor.getValue();
+        const queryValue = gremlinEditor.getValue();
 
         if (onValueChange) {
           onValueChange(queryValue);
+        }
+      });
+
+      gremlinEditor.on('changeSelection', () => {
+        const selectedValue = gremlinEditor.session.getTextRange(
+          gremlinEditor.getSelectionRange(),
+        );
+
+        if (onSelectChange) {
+          onSelectChange(selectedValue);
         }
       });
     }

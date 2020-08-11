@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GremlinEditor } from '../index';
+import GremlinEditor from '../index';
 import './index.less';
 
 export default () => {
@@ -14,6 +14,7 @@ export default () => {
         height={500}
         gremlinId="test-xxx"
         initValue=""
+        showGutter={false}
         onValueChange={str => handleClick(str)}
       />
       <div>{value}</div>
