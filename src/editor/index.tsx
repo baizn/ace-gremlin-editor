@@ -13,8 +13,9 @@ interface IProps {
   gremlinId: string;
   initValue: string;
   showGutter?: boolean;
-  onValueChange: (value: string) => void;
+  onValueChange?: (value: string) => void;
   onSelectChange?: (value: string) => void;
+  isReadOnly?: boolean;
 }
 
 const GremlinEditor: React.FC<IProps> = ({
@@ -24,6 +25,7 @@ const GremlinEditor: React.FC<IProps> = ({
   initValue,
   onValueChange,
   onSelectChange,
+  isReadOnly = false,
 }) => {
   let gremlinEditor: any = null;
 
@@ -42,6 +44,7 @@ const GremlinEditor: React.FC<IProps> = ({
       gremlinEditor.renderer.setShowGutter(showGutter);
       gremlinEditor.$blockScrolling = Infinity;
       // gremlinEditor.setOption('maxLines', 15);
+      gremlinEditor.setReadOnly(isReadOnly);
       gremlinEditor.setOption('minLines', 3);
       gremlinEditor.setOption('wrap', 'free');
       console.log(Object.keys(gremlinEditor.$options));
