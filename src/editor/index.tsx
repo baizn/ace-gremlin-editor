@@ -19,8 +19,6 @@ interface IProps {
   isReadOnly?: boolean;
 }
 
-let refEditorInstance: any = null;
-
 const GremlinEditor: React.FC<IProps> = ({
   height = 150,
   showGutter = true,
@@ -57,8 +55,6 @@ const GremlinEditor: React.FC<IProps> = ({
         enableLiveAutocompletion: true,
       });
 
-      refEditorInstance = gremlinEditor;
-
       gremlinEditor.on('change', () => {
         const queryValue = gremlinEditor.getValue();
 
@@ -80,28 +76,25 @@ const GremlinEditor: React.FC<IProps> = ({
 
     if (initValue) {
       gremlinEditor.setValue(initValue);
+
+      // 清除默认选中的内容
+      gremlinEditor.clearSelection();
+      // 自动换到下一行
+      gremlinEditor.splitLine();
+      // 将光标移动到第二行
+      gremlinEditor.gotoLine(2, 4, true);
     }
 
-    // 清除默认选中的内容
-    gremlinEditor.clearSelection();
-    // 自动换到下一行
-    gremlinEditor.splitLine();
-    // 将光标移动到第二行
-    gremlinEditor.gotoLine(2, 4, true);
+    if (historyValue) {
+      gremlinEditor.insert(historyValue);
+    }
 
     return () => {
       gremlinEditor.destroy();
       gremlinEditor.container.remove();
       gremlinEditor = null;
-      refEditorInstance = null;
     };
-  }, [gremlinId]);
-
-  useEffect(() => {
-    if (refEditorInstance && historyValue) {
-      refEditorInstance.insert(historyValue);
-    }
-  }, [historyValue]);
+  }, [gremlinId, historyValue]);
 
   return <div id={gremlinId} style={{ height }} />;
 };
