@@ -12,12 +12,14 @@ interface IProps {
   height: number;
   gremlinId: string;
   initValue: string;
+  historyValue?: string;
   showGutter?: boolean;
   onValueChange?: (value: string) => void;
   onSelectChange?: (value: string) => void;
   isReadOnly?: boolean;
 }
 
+let gremlinEditor: any = null;
 const GremlinEditor: React.FC<IProps> = ({
   height = 150,
   showGutter = true,
@@ -26,9 +28,8 @@ const GremlinEditor: React.FC<IProps> = ({
   onValueChange,
   onSelectChange,
   isReadOnly = false,
+  historyValue,
 }) => {
-  let gremlinEditor: any = null;
-
   useEffect(() => {
     if (!gremlinId) {
       throw new Error(`Gremlin Editor ID do not be undefined`);
@@ -47,7 +48,7 @@ const GremlinEditor: React.FC<IProps> = ({
       gremlinEditor.setReadOnly(isReadOnly);
       gremlinEditor.setOption('minLines', 3);
       gremlinEditor.setOption('wrap', 'free');
-      console.log(Object.keys(gremlinEditor.$options));
+      // console.log(Object.keys(gremlinEditor.$options));
       gremlinEditor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
@@ -87,8 +88,15 @@ const GremlinEditor: React.FC<IProps> = ({
     return () => {
       gremlinEditor.destroy();
       gremlinEditor.container.remove();
+      gremlinEditor = null;
     };
   }, [gremlinId]);
+
+  useEffect(() => {
+    if (gremlinEditor && historyValue) {
+      gremlinEditor.insert(historyValue);
+    }
+  }, [historyValue]);
 
   return <div id={gremlinId} style={{ height }} />;
 };
