@@ -19,6 +19,9 @@ interface IProps {
   isReadOnly?: boolean;
 }
 
+let editorInstances = {} as {
+  [key: string]: any;
+};
 const GremlinEditor: React.FC<IProps> = ({
   height = 150,
   showGutter = true,
@@ -29,13 +32,14 @@ const GremlinEditor: React.FC<IProps> = ({
   isReadOnly = false,
   historyValue,
 }) => {
-  let gremlinEditor: any = null;
+  let gremlinEditor: any = editorInstances[gremlinId];
   useEffect(() => {
     if (!gremlinId) {
       throw new Error(`Gremlin Editor ID do not be undefined`);
     }
     if (!gremlinEditor) {
-      gremlinEditor = (window as any).ace.edit(gremlinId);
+      editorInstances[gremlinId] = (window as any).ace.edit(gremlinId);
+      gremlinEditor = editorInstances[gremlinId]; //(window as any).ace.edit(gremlinId);
       // (window as any).ace.require('ace/ext/old_ie');
       (window as any).ace.require('ace/ext/language_tools');
       gremlinEditor.setTheme('ace/theme/clouds_midnight');
@@ -76,25 +80,27 @@ const GremlinEditor: React.FC<IProps> = ({
 
     if (initValue) {
       gremlinEditor.setValue(initValue);
-
-      // 清除默认选中的内容
-      gremlinEditor.clearSelection();
-      // 自动换到下一行
-      gremlinEditor.splitLine();
-      // 将光标移动到第二行
-      gremlinEditor.gotoLine(2, 4, true);
     }
-
-    if (historyValue) {
-      gremlinEditor.insert(historyValue);
-    }
+    // 清除默认选中的内容
+    gremlinEditor.clearSelection();
+    // 自动换到下一行
+    gremlinEditor.splitLine();
+    // 将光标移动到第二行
+    gremlinEditor.gotoLine(2, 4, true);
 
     return () => {
       gremlinEditor.destroy();
       gremlinEditor.container.remove();
       gremlinEditor = null;
+      editorInstances = null as any;
     };
-  }, [gremlinId, historyValue]);
+  }, [gremlinId]);
+
+  useEffect(() => {
+    if (editorInstances[gremlinId] && historyValue) {
+      editorInstances[gremlinId].insert(historyValue);
+    }
+  }, [historyValue]);
 
   return <div id={gremlinId} style={{ height }} />;
 };
