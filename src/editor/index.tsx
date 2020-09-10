@@ -19,7 +19,8 @@ interface IProps {
   isReadOnly?: boolean;
 }
 
-let gremlinEditor: any = null;
+let refEditorInstance: any = null;
+
 const GremlinEditor: React.FC<IProps> = ({
   height = 150,
   showGutter = true,
@@ -30,6 +31,7 @@ const GremlinEditor: React.FC<IProps> = ({
   isReadOnly = false,
   historyValue,
 }) => {
+  let gremlinEditor: any = null;
   useEffect(() => {
     if (!gremlinId) {
       throw new Error(`Gremlin Editor ID do not be undefined`);
@@ -54,6 +56,8 @@ const GremlinEditor: React.FC<IProps> = ({
         enableSnippets: true,
         enableLiveAutocompletion: true,
       });
+
+      refEditorInstance = gremlinEditor;
 
       gremlinEditor.on('change', () => {
         const queryValue = gremlinEditor.getValue();
@@ -89,12 +93,13 @@ const GremlinEditor: React.FC<IProps> = ({
       gremlinEditor.destroy();
       gremlinEditor.container.remove();
       gremlinEditor = null;
+      refEditorInstance = null;
     };
   }, [gremlinId]);
 
   useEffect(() => {
-    if (gremlinEditor && historyValue) {
-      gremlinEditor.insert(historyValue);
+    if (refEditorInstance && historyValue) {
+      refEditorInstance.insert(historyValue);
     }
   }, [historyValue]);
 
