@@ -92,7 +92,7 @@ const GremlinEditor: React.FC<IProps> = ({
       gremlinEditor.destroy();
       gremlinEditor.container.remove();
       gremlinEditor = null;
-      editorInstances = null as any;
+      delete editorInstances[gremlinId];
     };
   }, [gremlinId]);
 
