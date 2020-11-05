@@ -84,9 +84,9 @@ const GremlinEditor: React.FC<IProps> = ({
     // 清除默认选中的内容
     gremlinEditor.clearSelection();
     // 自动换到下一行
-    gremlinEditor.splitLine();
+    // gremlinEditor.splitLine();
     // 将光标移动到第二行
-    gremlinEditor.gotoLine(2, 4, true);
+    // gremlinEditor.gotoLine(1, 4, true);
 
     return () => {
       gremlinEditor.destroy();
