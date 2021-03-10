@@ -1,6 +1,6 @@
 {
-  "name": "ace-gremlin-editor",
-  "version": "0.0.12",
+  "name": "ace-gremlin-editor-beta",
+  "version": "0.0.1",
   "description": "基于 Ace 的 Gremlin 编辑器",
   "keywords": [
     "ace",
@@ -50,12 +50,12 @@
   },
   "dependencies": {
     "@umijs/preset-react": "1.x",
-    "@umijs/test": "^3.2.14",
+    "@umijs/test": "1.9.6",
     "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "umi": "^3.2.14",
+    "umi": "2.13.17",
     "yorkie": "^2.0.0"
   },
   "devDependencies": {
