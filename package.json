@@ -1,6 +1,6 @@
 {
   "name": "ace-gremlin-editor",
-  "version": "0.0.12",
+  "version": "0.0.13-beta.3",
   "description": "基于 Ace 的 Gremlin 编辑器",
   "keywords": [
     "ace",
@@ -21,7 +21,6 @@
     "start": "umi dev",
     "build": "npm run clean && father build",
     "clean": "rimraf es esm lib dist",
-    "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
@@ -48,7 +47,9 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "dependencies": {
+  "devDependencies": {
+    "father": "^2.29.6",
+    "rimraf": "^3.0.2",
     "@umijs/preset-react": "1.x",
     "@umijs/test": "^3.2.14",
     "lint-staged": "^10.0.7",
@@ -57,9 +58,5 @@
     "react-dom": "^16.12.0",
     "umi": "^3.2.14",
     "yorkie": "^2.0.0"
-  },
-  "devDependencies": {
-    "father": "^2.29.6",
-    "rimraf": "^3.0.2"
   }
 }

@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 require('../source/ace/ace-builds/src-noconflict/ace');
 require('../source/ace/ace-builds/src-noconflict/mode-gremlin');
 require('../source/ace/ace-builds/src-noconflict/theme-clouds_midnight');
+require('../source/ace/ace-builds/src-noconflict/theme-chrome');
+require('../source/ace/ace-builds/src-noconflict/theme-clouds');
+require('../source/ace/ace-builds/src-noconflict/theme-tomorrow');
 require('../source/ace/ace-builds/src-noconflict/ext-language_tools');
 import './index.less';
 
@@ -17,6 +20,7 @@ interface IProps {
   onValueChange?: (value: string) => void;
   onSelectChange?: (value: string) => void;
   isReadOnly?: boolean;
+  theme?: 'clouds_midnight' | 'chrome' | 'clouds' | 'tomorrow' | null;
 }
 
 let editorInstances = {} as {
@@ -31,6 +35,7 @@ const GremlinEditor: React.FC<IProps> = ({
   onSelectChange,
   isReadOnly = false,
   historyValue,
+  theme = 'tomorrow',
 }) => {
   let gremlinEditor: any = editorInstances[gremlinId];
   useEffect(() => {
@@ -42,7 +47,9 @@ const GremlinEditor: React.FC<IProps> = ({
       gremlinEditor = editorInstances[gremlinId]; //(window as any).ace.edit(gremlinId);
       // (window as any).ace.require('ace/ext/old_ie');
       (window as any).ace.require('ace/ext/language_tools');
-      gremlinEditor.setTheme('ace/theme/clouds_midnight');
+      if (theme) {
+        gremlinEditor.setTheme(`ace/theme/${theme}`);
+      }
       gremlinEditor.session.setMode('ace/mode/gremlin');
       gremlinEditor.setShowPrintMargin(false);
       gremlinEditor.setHighlightActiveLine(false);
