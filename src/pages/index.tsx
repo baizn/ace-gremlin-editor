@@ -14,6 +14,7 @@ export default () => {
         height={500}
         gremlinId="test-xxx"
         initValue=""
+        theme="tomorrow"
         showGutter={true}
         onValueChange={str => handleClick(str)}
       />
