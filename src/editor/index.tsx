@@ -21,6 +21,11 @@ interface IProps {
   onSelectChange?: (value: string) => void;
   isReadOnly?: boolean;
   theme?: 'clouds_midnight' | 'chrome' | 'clouds' | 'tomorrow' | null;
+  onInit?: (ins: GremlinEditorIns) => void;
+}
+
+export interface GremlinEditorIns {
+  resize: () => void;
 }
 
 let editorInstances = {} as {
@@ -36,6 +41,7 @@ const GremlinEditor: React.FC<IProps> = ({
   isReadOnly = false,
   historyValue,
   theme = 'tomorrow',
+  onInit,
 }) => {
   let gremlinEditor: any = editorInstances[gremlinId];
   useEffect(() => {
@@ -83,6 +89,14 @@ const GremlinEditor: React.FC<IProps> = ({
           onSelectChange(selectedValue);
         }
       });
+
+      if (onInit) {
+        onInit({
+          resize: () => {
+            gremlinEditor.resize();
+          },
+        });
+      }
     }
 
     if (initValue) {
