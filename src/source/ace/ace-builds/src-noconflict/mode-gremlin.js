@@ -1028,7 +1028,9 @@ ace.define(
         'identity|groupCount|until|barrier|fold|unfold|schemaId|checkName|makeIndexLabel|makeVertexLabel|makePropertyKey|' +
         'sideEffect|hasNext|toList|toSet|cap|option|branch|choose|repeat|emit|order|mean|withComputer|subgraph|' +
         'getObjectsAtDepth|hasValue|hasNot|hasId|nullableKey|nullableKeys|sortKeys|link|singleTime|multiTimes|' +
-        'enableLabelIndex|userdata|checkExist|linkWithLabel|directed|idStrategy|primaryKeys|primaryKey';
+        'enableLabelIndex|userdata|checkExist|linkWithLabel|directed|idStrategy|primaryKeys|primaryKey|as|' +
+        'startingWith|endingWith|containing|' +
+        'notStartingWith|notEndingWith|notContaining';
 
       var dataTypes =
         'int|numeric|decimal|date|varchar|char|bigint|float|double|bit|binary|text|set|timestamp|toString|primitive|' +
